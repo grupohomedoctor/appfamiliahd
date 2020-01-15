@@ -86,6 +86,12 @@ const ElectiveRemoval = props => {
 
       <ScrollView fillViewport="true" style={styles.form}>
         <View style={styles.scrollChildren} layout_height="wrap_content">
+          <View style={styles.containerObs}>
+            <Text style={styles.nunito}>
+              Atente-se ao prazo mínimo definido para seu convênio para
+              solicitação de remoção eletiva.
+            </Text>
+          </View>
           <InputWithLabel
             inputTitle={'Cargo/Parentesco do Solicitante'}
             placeholder={'Cargo/Parentesco...'}

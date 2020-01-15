@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Image, Alert, Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Image, Alert, Platform, BackHandler, Text } from 'react-native';
 import styles from './styles';
 import SolicitationHeader from '../../components/SolicitationHeader';
 import GradientButton from '../../components/GradientButton';
@@ -8,6 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as dbConnectionActions } from '../../store/ducks/dbConnection';
 import documentIcon from '../../assets/icons/document-icon.png';
+import { Component } from 'react';
 
 const Exams = props => {
   const [medicalPrescription, setMedicalPrescription] = useState('');
@@ -40,7 +41,7 @@ const Exams = props => {
     title: 'Anexar pedido médico (guia)',
     cancelButtonTitle: 'Cancelar',
     takePhotoButtonTitle: 'Tirar foto...',
-    chooseFromLibraryButtonTitle: 'Escolher da biblioteca...',
+    chooseFromLibraryButtonTitle: 'Escolher no álbum...',
     storageOptions: {
       skipBackup: true,
       path: 'images',

@@ -28,6 +28,11 @@ const styles = StyleSheet.create({
   nunito: {
     fontFamily: 'Nunito-Regular',
     fontSize: 20,
+    textAlign: 'justify',
+  },
+  containerObs: {
+    paddingHorizontal: 30,
+    paddingVertical: 14,
   },
   paddingHorizontalOf6Percent: {
     paddingHorizontal: '6%',

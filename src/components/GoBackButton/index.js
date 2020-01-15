@@ -6,7 +6,7 @@ import { withNavigation } from 'react-navigation';
 
 const GoBackButton = props => {
   const navigationHandler = () => {
-    props.navigation.navigate(props.path);
+    props.navigation.goBack();
   };
 
   return (

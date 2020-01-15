@@ -9,28 +9,44 @@ import RegisterUser from './pages/RegisterUser';
 import Info from './pages/Info';
 import SolicitationDetails from './pages/SolicitationDetails';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+const stackNavigatorHome = createStackNavigator(
+  {
+    Home,
+    Equipment,
+    Exams,
+    OxygenRefill,
+    ElectiveRemoval,
+    Info,
+    SolicitationDetails,
+  },
+  {
+    headerMode: 'none',
+  },
+);
+
+const stackNavigatorLogin = createStackNavigator(
+  {
+    Login,
+    Forgot,
+    RegisterUser,
+    Info,
+  },
+  {
+    headerMode: 'none',
+  },
+);
 
 const Routes = (userLogged = null) =>
   createAppContainer(
     createSwitchNavigator(
       {
-        Login: {
-          screen: Login,
-        },
-        Home: {
-          screen: Home,
-        },
-        Equipment,
-        Exams,
-        OxygenRefill,
-        ElectiveRemoval,
-        Info,
-        SolicitationDetails,
-        Forgot,
-        RegisterUser,
+        LoginRoute: stackNavigatorLogin,
+        HomeRoute: stackNavigatorHome,
       },
       {
-        initialRouteName: userLogged ? 'Home' : 'Login',
+        initialRouteName: userLogged ? 'HomeRoute' : 'LoginRoute',
       },
     ),
   );
