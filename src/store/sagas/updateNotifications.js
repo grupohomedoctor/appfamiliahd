@@ -73,7 +73,7 @@ export function* updateNotificationsDataset({ payload }) {
       const jsonResponse = yield data.text();
       data = yield call(formatXml, jsonResponse);
       if (data) {
-        console.log(data);
+        // console.log(data);
       } else {
         yield put(updateNotifications.updateFailure());
       }

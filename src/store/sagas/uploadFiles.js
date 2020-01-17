@@ -68,7 +68,7 @@ export function* saveFiles(files) {
     );
     return id;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return false;
   }
 }

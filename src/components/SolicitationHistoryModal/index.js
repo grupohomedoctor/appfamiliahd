@@ -17,6 +17,8 @@ import examLogo from '../../assets/icons/exam.png';
 import { withNavigation } from 'react-navigation';
 
 const decideImage = typeOfSolicitation => {
+  // console.log('typeOfSolicitation');
+  // console.log(typeOfSolicitation);
   if (typeOfSolicitation.toUpperCase().includes('RECARGA')) {
     return <Image style={styles.logo} source={oxygenLogo} />;
   } else if (typeOfSolicitation.toUpperCase().includes('EQUIPAMENTOS')) {
@@ -33,17 +35,30 @@ function SolicitationHistoryModal(props) {
 
   useEffect(() => {
     if (props.openSolicitations) {
-      const orderSolicitation = props.openSolicitations.sort(
-        (a, b) => new Date(b.CreationDate) - new Date(a.CreationDate),
-      );
+      // const orderSolicitation = props.openSolicitations.sort(
+      //   (a, b) => new Date(b.CreationDate) - new Date(a.CreationDate),
+      // );
+      // const orderSolicitation = props.openSolicitations.sort(
+      //   // (a, b) => new Date(b.CreationDate) - new Date(a.CreationDate),
+
+      // );
+      const orderSolicitation = props.openSolicitations.sort(function(a, b) {
+        return a.EventDate < b.EventDate
+          ? 1
+          : b.EventDate < a.EventDate
+          ? -1
+          : 0;
+      });
 
       setSolicitations(orderSolicitation);
     }
-  }, [props.openSolicitations]);
+  }, [props.openSolicitations, solicitations]);
 
-  console.log(solicitations);
+  // console.log('solicitations');
+  // console.log(solicitations);
 
   function handleOpenDetails(solicitation) {
+    props.onClosed();
     props.navigation.navigate('SolicitationDetails', { solicitation });
   }
 
@@ -55,18 +70,21 @@ function SolicitationHistoryModal(props) {
       swipeArea={40}
       backdropPressToClose={false}
       isOpen={props.isOpen}
+      backButtonClose
       onClosed={props.onClosed}>
       <Icon style={styles.gripIcon} name="grip-lines" size={20} />
       {props.openSolicitations ? (
         <View style={styles.modalContainer}>
           <FlatList
             keyExtractor={solicitation => solicitation.ID}
-            data={
-              props.openSolicitations &&
-              props.openSolicitations.sort(
-                (a, b) => Number(b.ID) - Number(a.ID),
-              )
-            }
+            // data={
+            //   props.openSolicitations &&
+            //   props.openSolicitations.sort(
+            //     (a, b) => Number(b.ID) - Number(a.ID),
+            //   )
+            // }
+            // data={props.openSolicitations}
+            data={solicitations}
             renderItem={({ item: solicitation }) => (
               <TouchableOpacity
                 onPress={() => handleOpenDetails(solicitation)}
@@ -74,7 +92,10 @@ function SolicitationHistoryModal(props) {
                 {decideImage(solicitation.Subject)}
                 <View style={{ flexGrow: 1 }}>
                   <Text>{solicitation.EventDate}</Text>
-                  <Text numberOfLines={2} ellipsizeMode="tail">
+                  <Text
+                    style={styles.nunito}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
                     {solicitation.Subject}
                   </Text>
                 </View>

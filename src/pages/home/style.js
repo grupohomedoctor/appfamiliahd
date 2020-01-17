@@ -23,6 +23,11 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 30,
   },
+  nunitoBold: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 14,
+    textAlign: 'justify',
+  },
 });
 
 export default style;

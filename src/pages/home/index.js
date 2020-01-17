@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
+import { View, ScrollView, Alert, Text } from 'react-native';
 import style from './style';
 import HomeHeader from '../../components/HomeHeader';
 import HomeMenu from '../../components/HomeMenu';
@@ -19,6 +19,10 @@ const Home = props => {
   const error = useSelector(state => state.home.error);
   const userName = useSelector(state => state.asyncStorage.userName);
   const IDAdmission = useSelector(state => state.asyncStorage.IDAdmission);
+  const pacienteDataNasc = useSelector(
+    state => state.asyncStorage.pacienteDataNasc,
+  );
+  const pacienteNome = useSelector(state => state.asyncStorage.pacienteNome);
   const openSolicitationsLoading = useSelector(
     state => state.getOpenSolicitations.loading,
   );
@@ -34,6 +38,16 @@ const Home = props => {
 
   const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
   const [notificationModalIsOpen, setNotificationModalIsOpen] = useState(false);
+
+  // TEMPORARIO
+  const dataFormat = () => {
+    let data = pacienteDataNasc
+      .split(' ')[0]
+      .split('-')
+      .reverse()
+      .join('/');
+    return data;
+  };
 
   useEffect(() => {
     if (IDAdmission) {
@@ -79,6 +93,10 @@ const Home = props => {
         notificationsLoading={notificationsLoading}
       />
       <View style={style.HomeMenu}>
+        <View style={{ margin: 8 }}>
+          <Text style={style.nunitoBold}>Paciente: {pacienteNome}</Text>
+          <Text style={style.nunitoBold}>Nasc: {dataFormat()}</Text>
+        </View>
         <HomeMenu />
       </View>
       <View style={style.SolicitationHistory}>

@@ -1,10 +1,18 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  useEffect,
+} from 'react-native';
 import style from './style';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { withNavigation } from 'react-navigation';
 
 const HomeHeader = props => {
+  // console.log('props.notifications - HomeHeader');
+  // console.log(props.notifications);
   const navigationHandler = path => {
     props.navigation.navigate(path);
   };

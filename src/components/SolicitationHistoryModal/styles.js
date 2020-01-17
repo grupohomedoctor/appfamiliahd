@@ -27,6 +27,13 @@ const styles = StyleSheet.create({
     width: 80,
     marginHorizontal: 20,
   },
+  nunito: {
+    // flex: 1,
+    paddingVertical: 20,
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    textAlign: 'justify',
+  },
 });
 
 export default styles;

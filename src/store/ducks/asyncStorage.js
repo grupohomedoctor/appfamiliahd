@@ -7,6 +7,9 @@ const INITIAL_STATE = {
   userName: null,
   IDAdmission: null,
   patientsAddress: null,
+  Base: null,
+  pacienteNome: null,
+  pacienteDataNasc: null,
 };
 
 export default function storage(state = INITIAL_STATE, action) {
@@ -17,6 +20,9 @@ export default function storage(state = INITIAL_STATE, action) {
         userName: action.payload.userName,
         IDAdmission: action.payload.IDAdmission,
         patientsAddress: action.payload.patientsAddress,
+        Base: action.payload.Base,
+        pacienteNome: action.payload.pacienteNome,
+        pacienteDataNasc: action.payload.pacienteDataNasc,
       };
     case Types.CLEAR_DATA:
       return {
@@ -24,6 +30,9 @@ export default function storage(state = INITIAL_STATE, action) {
         userName: null,
         IDAdmission: null,
         patientsAddress: null,
+        Base: null,
+        pacienteNome: null,
+        pacienteDataNasc: null,
       };
     default:
       return state;
@@ -31,12 +40,22 @@ export default function storage(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-  setDataStorage: (userName, IDAdmission, patientsAddress) => ({
+  setDataStorage: (
+    userName,
+    IDAdmission,
+    patientsAddress,
+    Base,
+    pacienteNome,
+    pacienteDataNasc,
+  ) => ({
     type: Types.SET_DATA,
     payload: {
       userName,
       IDAdmission,
       patientsAddress,
+      Base,
+      pacienteNome,
+      pacienteDataNasc,
     },
   }),
 

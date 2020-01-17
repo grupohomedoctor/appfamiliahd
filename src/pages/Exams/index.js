@@ -17,6 +17,7 @@ const Exams = props => {
   const loading = useSelector(state => state.dbConnection.loading);
   const userName = useSelector(state => state.asyncStorage.userName);
   const IDAdmission = useSelector(state => state.asyncStorage.IDAdmission);
+  const Base = useSelector(state => state.asyncStorage.Base);
 
   const submitHandle = () => {
     if (!medicalPrescription) {
@@ -24,12 +25,17 @@ const Exams = props => {
         { text: 'Ok', style: 'destructive', onPress: null },
       ]);
     } else {
+      // console.log('medicalPrescription.file');
+      // console.log(medicalPrescription.file);
+      // console.log('medicalPrescription');
+      // console.log(medicalPrescription);
       dispatch(
         dbConnectionActions.Post(
           IDAdmission,
-          'SP',
+          Base,
           403,
-          null,
+          // null,
+          'Arquivo anexado.',
           userName,
           medicalPrescription.file,
         ),

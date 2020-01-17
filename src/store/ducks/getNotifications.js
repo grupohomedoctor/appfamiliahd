@@ -22,6 +22,8 @@ export default function getNotifications(state = INITIAL_STATE, action) {
         notifications: [],
       };
     case Types.SUCCESS_GETNOTIFICATIONS:
+      // console.log('notification ducks');
+      // console.log(action.payload.notifications);
       return {
         ...state,
         error: false,

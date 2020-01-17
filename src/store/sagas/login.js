@@ -79,6 +79,11 @@ export function* Login({ payload }) {
 
     data = yield call(formatXml, data);
 
+    // console.log('teste: data');
+    // console.log(data);
+    // console.log('data.values');
+    // console.log(data.values);
+
     if (data.columns.includes('ok')) {
       if (data.values[0].value[0] && data.values[0].value[0] !== 'false') {
         yield put(
@@ -86,8 +91,12 @@ export function* Login({ payload }) {
             data.values[0].value[1],
             data.values[0].value[2],
             data.values[0].value[3],
+            data.values[0].value[4],
+            data.values[0].value[5],
+            data.values[0].value[6],
           ),
         );
+
         yield put(LoginActions.loginSuccess());
         yield call(navigate, 'Home');
       } else {

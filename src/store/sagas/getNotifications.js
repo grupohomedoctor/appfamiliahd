@@ -70,10 +70,23 @@ export function* getNotificationsDataset({ payload }) {
       body: xmls,
     });
 
+    // console.log('retorno getNotification');
+    // console.log(data);
+
     if (data) {
       const jsonResponse = yield data.text();
       data = yield call(formatXml, jsonResponse);
+
+      // console.log('retorno getNotification nova call');
+      // console.log(jsonResponse);
+
       yield put(getOpenSolicitations.getOpenSolicitations(payload.IDAdmission));
+
+      // console.log('apenas data');
+      // console.log(data);
+      // console.log('data.values');
+      // console.log(data.values);
+
       if (data) {
         yield put(getNotifications.success(data.values));
       } else {

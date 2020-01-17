@@ -10,7 +10,7 @@ const SolicitationHeader = props => {
         backToLogin={props.backToLogin}
         path={props.pathToGoBackTo}
       />
-      <View style={{ ...styles.headerContainerStyle, ...props.style }}>
+      <View style={{ ...styles.headerContainerStyle }}>
         <Text style={styles.header}>{props.headerTitle}</Text>
       </View>
     </View>

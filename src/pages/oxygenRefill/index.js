@@ -17,6 +17,7 @@ const OxygenRefill = () => {
   const loading = useSelector(state => state.dbConnection.loading);
   const userName = useSelector(state => state.asyncStorage.userName);
   const IDAdmission = useSelector(state => state.asyncStorage.IDAdmission);
+  const Base = useSelector(state => state.asyncStorage.Base);
 
   const submitHandle = () => {
     const fields = [requesterTitle, cylinderSize, oxygenLeft];
@@ -32,7 +33,8 @@ const OxygenRefill = () => {
       dispatch(
         dbConnectionActions.Post(
           IDAdmission,
-          'SP',
+          Base,
+          // 'SP',
           401,
           description,
           userName,

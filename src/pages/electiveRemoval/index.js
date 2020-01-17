@@ -32,6 +32,7 @@ const ElectiveRemoval = props => {
   const patientsAddress = useSelector(
     state => state.asyncStorage.patientsAddress,
   );
+  const Base = useSelector(state => state.asyncStorage.Base);
 
   const submitHandle = () => {
     const fields = [
@@ -70,7 +71,7 @@ const ElectiveRemoval = props => {
       dispatch(
         dbConnectionActions.Post(
           IDAdmission,
-          'SP',
+          Base,
           404,
           description,
           userName,

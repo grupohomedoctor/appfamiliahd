@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, useEffect, useState } from 'react-native';
 import HTMLView from 'react-native-render-html';
 
 import SolicitationHeader from '../../components/SolicitationHeader';
@@ -7,8 +7,43 @@ import SolicitationHeader from '../../components/SolicitationHeader';
 import styles from './styles';
 
 export default function SolicitationDetails({ navigation }) {
+  // const [solicitation, setSolicitation] = useState([{ solicitation }]);
   const solicitation = navigation.getParam('solicitation');
-  console.log(solicitation);
+
+  // useEffect(() => {
+  //   // setSolicitation(navigation.getParam('solicitation'));
+  //   // solicitation = navigation.getParam('solicitation');
+  // });
+  // useEffect(() => {
+  //   const solicitation = navigation.getParam('solicitation');
+  // }, [solicitation]);
+
+  // console.log('solicitation details');
+  // console.log(solicitation);
+
+  const desc = () => {
+    let resp = null;
+    if (solicitation.Subject !== 'EXAMES - Agendamento') {
+      resp = (
+        <HTMLView
+          tagsStyles={{
+            span: {
+              fontFamily: 'Nunito-Regular',
+              fontSize: 20,
+            },
+          }}
+          html={`<span>${solicitation.Description}</span>`}
+        />
+      );
+    } else {
+      resp = (
+        <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 20 }}>
+          Imagem anexada
+        </Text>
+      );
+    }
+    return resp;
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -24,6 +59,7 @@ export default function SolicitationDetails({ navigation }) {
         </View>
         <View style={styles.details}>
           <Text style={styles.title}>Descrição</Text>
+          {/*desc()*/}
           <HTMLView
             tagsStyles={{
               span: {

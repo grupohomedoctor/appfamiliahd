@@ -9,11 +9,14 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     justifyContent: 'space-between',
   },
+  // alterado
   header: {
     fontSize: 26,
     fontFamily: 'Nunito-SemiBold',
+    textAlign: 'justify',
   },
   headerContainerStyle: {
+    // paddingRight: 200,
     paddingRight: 150,
   },
 });
