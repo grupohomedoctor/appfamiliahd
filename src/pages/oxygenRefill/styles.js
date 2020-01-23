@@ -6,6 +6,8 @@ const styles = StyleSheet.create({
   },
   nunito: {
     fontFamily: 'Nunito-Regular',
+    fontSize: 20,
+    textAlign: 'justify',
   },
   headerRow: {
     paddingVertical: 30,
@@ -26,6 +28,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingBottom: 10,
     justifyContent: 'flex-start',
+  },
+  containerObs: {
+    paddingHorizontal: 30,
+    paddingVertical: 14,
   },
   icon: {
     paddingRight: 20,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
+import { View, ScrollView, Alert, Text } from 'react-native';
 import styles from './styles';
 import SolicitationHeader from '../../components/SolicitationHeader';
 import InputWithLabel from './../../components/InputWithLabel';
@@ -53,6 +53,12 @@ const OxygenRefill = () => {
 
       <ScrollView fillViewport="true" style={styles.form}>
         <View style={styles.scrollChildren} layout_height="wrap_content">
+          <View style={styles.containerObs}>
+            <Text style={styles.nunito}>
+              Fique atento! Remoções solicitadas fora do prazo de antecedência
+              mínimo definido por seu convênio não serão agendadas.
+            </Text>
+          </View>
           <InputWithLabel
             inputTitle={'Cargo/Parentesco do Solicitante'}
             placeholder={'Cargo/Parentesco...'}

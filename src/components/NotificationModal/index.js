@@ -89,6 +89,7 @@ const NotificationModal = props => {
       swipeArea={0}
       backdropPressToClose={false}
       isOpen={props.isOpen}
+      backButtonClose
       onClosed={props.onClosed}
       onOpened={props.onOpened}>
       {!props.notificationsLoading ? (

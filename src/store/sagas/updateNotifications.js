@@ -68,6 +68,7 @@ export function* updateNotificationsDataset({ payload }) {
       headers,
       body: xmls,
     });
+    console.log(data);
 
     if (data) {
       const jsonResponse = yield data.text();

@@ -89,8 +89,8 @@ const ElectiveRemoval = props => {
         <View style={styles.scrollChildren} layout_height="wrap_content">
           <View style={styles.containerObs}>
             <Text style={styles.nunito}>
-              Atente-se ao prazo mínimo definido para seu convênio para
-              solicitação de remoção eletiva.
+              Fique atento! Remoções solicitadas fora do prazo de antecedência
+              mínimo definido por seu convênio não serão agendadas.
             </Text>
           </View>
           <InputWithLabel
