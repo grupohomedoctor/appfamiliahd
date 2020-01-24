@@ -7,6 +7,10 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { Creators as updateNotifications } from '../../store/ducks/updateNotifications';
+
 import Modal from 'react-native-modalbox';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -50,6 +54,12 @@ const sortNotificationsByDate = notifications => {
 };
 
 const NotificationModal = props => {
+  const dispatch = useDispatch();
+
+  const handleDeleteNotification = idNotification => {
+    dispatch(updateNotifications.update(props.IDAdmission, idNotification));
+  };
+
   const notificationsContent = () => {
     if (props.notifications.length) {
       return (
@@ -59,13 +69,16 @@ const NotificationModal = props => {
             keyExtractor={notification => notification.value[1]}
             data={sortNotificationsByDate(props.notifications)}
             renderItem={({ item: notification }) => (
-              <View style={styles.notificationContainer}>
-                {decideImage(notification.value[9])}
-                <View>
-                  <Text>{notification.value[4]}</Text>
-                  <Text>{notification.value[9]}</Text>
+              <TouchableWithoutFeedback
+                onPress={() => handleDeleteNotification(notification.value[1])}>
+                <View style={styles.notificationContainer}>
+                  {decideImage(notification.value[9])}
+                  <View>
+                    <Text>{notification.value[4]}</Text>
+                    <Text>{notification.value[9]}</Text>
+                  </View>
                 </View>
-              </View>
+              </TouchableWithoutFeedback>
             )}
           />
         </View>

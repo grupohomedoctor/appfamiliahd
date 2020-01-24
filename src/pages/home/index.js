@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Creators as homePostResult } from '../../store/ducks/homePostResult';
 // import { Creators as getOpenSolicitations } from '../../store/ducks/getOpenSolicitations';
 import { Creators as getNotifications } from '../../store/ducks/getNotifications';
-import { Creators as updateNotifications } from '../../store/ducks/updateNotifications';
+
 import SolicitationHistoryModal from '../../components/SolicitationHistoryModal';
 import NotificationModal from '../../components/NotificationModal';
 import ButtonLogout from '../../components/ButtonLogout';
@@ -73,12 +73,6 @@ const Home = props => {
     dispatch(homePostResult.default());
   }, [error, success, dispatch]);
 
-  const notificationVisualizedHandler = () => {
-    if (notifications.length) {
-      dispatch(updateNotifications.update(IDAdmission));
-    }
-  };
-
   const notificationClosedHandler = () => {
     setNotificationModalIsOpen(false);
     dispatch(getNotifications.getNotifications(IDAdmission));
@@ -104,10 +98,10 @@ const Home = props => {
       </View>
       <NotificationModal
         isOpen={notificationModalIsOpen}
-        onOpened={notificationVisualizedHandler}
         onClosed={notificationClosedHandler}
         notificationsLoading={notificationsLoading}
         notifications={notifications}
+        IDAdmission={IDAdmission}
       />
       <SolicitationHistoryModal
         isOpen={historyModalIsOpen}

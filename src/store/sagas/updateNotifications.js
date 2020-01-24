@@ -8,6 +8,7 @@ import {
 } from 'react-native-dotenv';
 import xml2js from 'react-native-xml2js';
 import { Creators as updateNotifications } from '../ducks/updateNotifications';
+import { Creators as getNotifications } from '../ducks/getNotifications';
 
 function formatXml(data, typeUser) {
   const parser = new xml2js.Parser({ ignoreAttrs: true });
@@ -54,6 +55,12 @@ export function* updateNotificationsDataset({ payload }) {
               <finalValue>${payload.IDAdmission}</finalValue>
               <initialValue>${payload.IDAdmission}</initialValue>
             </item>
+            <item>
+              <contraintType>1</contraintType>
+              <fieldName>ID</fieldName>
+              <finalValue>${payload.idNoification}</finalValue>
+              <initialValue>${payload.idNoification}</initialValue>
+            </item>
           </constraints>
           <order>
           </order>
@@ -68,16 +75,9 @@ export function* updateNotificationsDataset({ payload }) {
       headers,
       body: xmls,
     });
-    console.log(data);
 
     if (data) {
-      const jsonResponse = yield data.text();
-      data = yield call(formatXml, jsonResponse);
-      if (data) {
-        // console.log(data);
-      } else {
-        yield put(updateNotifications.updateFailure());
-      }
+      yield put(getNotifications.remove(payload.idNoification));
     } else {
       yield put(updateNotifications.updateFailure());
     }

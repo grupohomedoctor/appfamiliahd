@@ -32,10 +32,11 @@ export default function update(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-  update: IDAdmission => ({
+  update: (IDAdmission, idNoification) => ({
     type: Types.UPDATE_REQUEST,
     payload: {
       IDAdmission,
+      idNoification,
     },
   }),
 

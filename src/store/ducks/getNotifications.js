@@ -2,6 +2,7 @@ export const Types = {
   REQUEST_GETNOTIFICATIONS: 'REQUEST_GETNOTIFICATIONS',
   SUCCESS_GETNOTIFICATIONS: 'SUCCESS_GETNOTIFICATIONS',
   FAILURE_GETNOTIFICATIONS: 'FAILURE_GETNOTIFICATIONS',
+  REMOVE_GETNOTIFICATIONS: 'REMOVE_GETNOTIFICATIONS',
 };
 
 const INITIAL_STATE = {
@@ -37,6 +38,14 @@ export default function getNotifications(state = INITIAL_STATE, action) {
         loading: false,
         notifications: [],
       };
+    case Types.REMOVE_GETNOTIFICATIONS:
+      return {
+        ...state,
+        notifications: state.notifications.filter(
+          notification =>
+            notification.value[1] !== action.payload.idNotification,
+        ),
+      };
     default:
       return state;
   }
@@ -59,6 +68,13 @@ export const Creators = {
 
   failure: () => ({
     type: Types.FAILURE_GETNOTIFICATIONS,
+  }),
+
+  remove: idNotification => ({
+    type: Types.REMOVE_GETNOTIFICATIONS,
+    payload: {
+      idNotification,
+    },
   }),
 
   default: () => ({
