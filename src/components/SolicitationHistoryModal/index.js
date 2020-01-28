@@ -43,9 +43,9 @@ function SolicitationHistoryModal(props) {
 
       // );
       const orderSolicitation = props.openSolicitations.sort(function(a, b) {
-        return new Date(a.EventDate) < new Date(b.EventDate)
+        return +a.ID < +b.ID
           ? 1
-          : new Date(b.EventDate) < new Date(a.EventDate)
+          : +b.ID < +a.ID
           ? -1
           : 0;
       });
