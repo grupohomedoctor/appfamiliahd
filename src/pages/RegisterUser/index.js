@@ -35,6 +35,8 @@ export default function RegisterUser({ navigation }) {
       navigation.navigate('Login');
     }
   }, [dispatch, error, navigation, success]);
+  // useEffect(() => {
+  // }, [dispatch, error, navigation, success, namePatient]);
 
   function submitHandle() {
     if (
@@ -50,6 +52,7 @@ export default function RegisterUser({ navigation }) {
         3,
         2,
       )}-${birthPatient.substr(0, 2)} 00:00:00.0`;
+      let namePatientNoAccent = namePatient.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
       dispatch(
         RegisterUserActions.registerUserRequest(
@@ -57,8 +60,8 @@ export default function RegisterUser({ navigation }) {
           cpf,
           email,
           password,
-          namePatient,
-          // emailPatient,
+          // namePatient,
+          namePatientNoAccent,
           formatDate,
         ),
       );

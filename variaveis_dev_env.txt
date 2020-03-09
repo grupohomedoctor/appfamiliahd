@@ -1,4 +1,4 @@
-SERVER_FLUIG=http://conecta.homedoctor.com.br
+SERVER_FLUIG=http://conectahml.homedoctor.com.br
 COMPANY_FLUIG=1
 USER_FLUIG=reginaldo.medeiros@homedoctor.com.br
 PASS_FLUIG=Eyiupn80!!
@@ -10,10 +10,10 @@ DATASET_UPDATE=ds_mobileAppUpdateNotifications
 DATASET_REGISTER_USER=dsRegistroPacientes
 IDException=400
 
-POST_OAUTH_CUSTOMER_KEY=uploadImages
-POST_OAUTH_CUSTOMER_SECRET_KEY=uploadImages
-POST_OAUTH_TOKEN=cd10ed40-8b2e-4949-8d9b-97977e17eb57
-POST_OAUTH_TOKEN_SECRET=6d853f0e-0893-495d-be7d-46619cf7d777b4be5063-5827-46b2-8654-0e5bbc92003c
+POST_OAUTH_CUSTOMER_KEY=uploadFiles
+POST_OAUTH_CUSTOMER_SECRET_KEY=uploadFiles
+POST_OAUTH_TOKEN=2ac4e9ab-9dcc-41fc-95ba-3682b4659990
+POST_OAUTH_TOKEN_SECRET=6ddcd688-c24f-407a-9fb7-3c73f6a935dd428dab01-30aa-4014-be0b-b24577bd1d33
 
 GET_OAUTH_CUSTOMER_KEY=wcm_altera_senha
 GET_OAUTH_CUSTOMER_SECRET_KEY=wcm_altera_senha
