@@ -8,6 +8,7 @@ DATASET_GET=ds_mobileAppGetOpenSolicitations
 DATASET_GETNOTIFICATION=ds_mobileAppGetNotifications
 DATASET_UPDATE=ds_mobileAppUpdateNotifications
 DATASET_REGISTER_USER=dsRegistroPacientes
+DATASET_VERSION=ds_versao_app
 IDException=400
 
 POST_OAUTH_CUSTOMER_KEY=uploadImages

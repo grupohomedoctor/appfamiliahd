@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Creators as homePostResult } from '../../store/ducks/homePostResult';
 // import { Creators as getOpenSolicitations } from '../../store/ducks/getOpenSolicitations';
 import { Creators as getNotifications } from '../../store/ducks/getNotifications';
+import { Creators as getVersion } from '../../store/ducks/getVersion';
 
 import SolicitationHistoryModal from '../../components/SolicitationHistoryModal';
 import NotificationModal from '../../components/NotificationModal';
@@ -15,6 +16,9 @@ import ButtonLogout from '../../components/ButtonLogout';
 
 const Home = props => {
   const dispatch = useDispatch();
+  const allState = useSelector(state => state);
+  console.log('allState');
+  console.log(allState);
   const success = useSelector(state => state.home.success);
   const error = useSelector(state => state.home.error);
   const userName = useSelector(state => state.asyncStorage.userName);
@@ -42,16 +46,17 @@ const Home = props => {
   // TEMPORARIO
   const dataFormat = () => {
     let data = pacienteDataNasc
-      .split(' ')[0]
-      .split('-')
-      .reverse()
-      .join('/');
+      // .split(' ')[0]
+      // .split('-')
+      // .reverse()
+      // .join('/');
     return data;
   };
 
   useEffect(() => {
     if (IDAdmission) {
       dispatch(getNotifications.getNotifications(IDAdmission));
+      dispatch(getVersion.getVersion(IDAdmission));
     }
   }, [IDAdmission, dispatch]);
 

@@ -50,7 +50,7 @@ function SolicitationHistoryModal(props) {
           : 0;
       });
 
-      console.log(orderSolicitation)
+      // console.log(orderSolicitation)
 
       setSolicitations(orderSolicitation);
     }
