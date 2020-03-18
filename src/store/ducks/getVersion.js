@@ -6,11 +6,11 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  IDAdmission: null,
+  // IDAdmission: null,
   error: null,
   loading: false,
   // notifications: [],
-  notifications: null,
+  version: null,
   // data: null,
 };
 
@@ -19,11 +19,11 @@ export default function getVersion(state = INITIAL_STATE, action) {
     case Types.REQUEST_GETVERSION:
       return {
         ...state,
-        IDAdmission: action.payload.IDAdmission,
+        // IDAdmission: action.payload.IDAdmission,
         error: false,
         loading: true,
         // notifications: [],
-        notifications: null,
+        version: null,
         // version: [],
       };
     case Types.SUCCESS_GETVERSION:
@@ -33,7 +33,8 @@ export default function getVersion(state = INITIAL_STATE, action) {
         ...state,
         error: false,
         loading: false,
-        notifications: action.payload.notifications,
+        // notifications: action.payload.notifications,
+        version: action.payload.version,
       };
     case Types.FAILURE_GETVERSION:
       return {
@@ -41,14 +42,14 @@ export default function getVersion(state = INITIAL_STATE, action) {
         error: true,
         loading: false,
         // notifications: [],
-        notifications: null,
+        version: null,
       };
     case Types.REMOVE_GETVERSION:
       return {
         ...state,
-        notifications: state.notifications.filter(
-          notification =>
-            notification.value[1] !== action.payload.idNotification,
+        // notifications: state.notifications.filter(
+        version: state.version.filter(
+          version => version.value[1] !== action.payload.idNotification,
         ),
       };
     default:
@@ -57,17 +58,18 @@ export default function getVersion(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-  getVersion: IDAdmission => ({
+  // getVersion: (IDAdmission) => ({
+  getVersion: () => ({
     type: Types.REQUEST_GETVERSION,
     payload: {
-      IDAdmission,
+      // IDAdmission,
     },
   }),
 
-  success: notifications => ({
+  success: version => ({
     type: Types.SUCCESS_GETVERSION,
     payload: {
-      notifications,
+      version,
     },
   }),
 

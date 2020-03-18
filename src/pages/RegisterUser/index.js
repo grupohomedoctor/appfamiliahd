@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Alert } from 'react-native';
+import { ScrollView, View, Alert, Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Creators as RegisterUserActions } from '../../store/ducks/registerUser';
@@ -7,6 +7,9 @@ import { Creators as RegisterUserActions } from '../../store/ducks/registerUser'
 import SolicitationHeader from '../../components/SolicitationHeader';
 import InputWithLabel from '../../components/InputWithLabel';
 import GradientButton from '../../components/GradientButton';
+
+import { Creators as getVersion } from '../../store/ducks/getVersion';
+import { CURRENT_VERSION } from 'react-native-dotenv';
 
 import styles from './styles';
 
@@ -24,6 +27,8 @@ export default function RegisterUser({ navigation }) {
 
   const dispatch = useDispatch();
 
+  const realVersion = useSelector(state => state.getVersion.version);
+
   useEffect(() => {
     if (error) {
       dispatch(RegisterUserActions.registerUserDefault());
@@ -35,8 +40,36 @@ export default function RegisterUser({ navigation }) {
       navigation.navigate('Login');
     }
   }, [dispatch, error, navigation, success]);
-  // useEffect(() => {
-  // }, [dispatch, error, navigation, success, namePatient]);
+
+  // verificando versão no cadastro
+  useEffect(() => {
+    dispatch(getVersion.getVersion());
+  }, [dispatch]);
+
+  // verifica se a versão está correta
+  useEffect(() => {
+    console.log('useEffect de verificação');
+    console.log(realVersion);
+    if (realVersion !== null) {
+      if (CURRENT_VERSION !== realVersion) {
+        // versões divergentes
+        Alert.alert(
+          'Seu aplicativo está em uma versão desatualizada',
+          'Realize a atualização do seu aplicativo na Play Store',
+          [
+            {
+              text: 'Ok',
+              style: 'destructive',
+              onPress: () => {
+                Linking.openURL('https://play.google.com/store/apps/details?id=com.homedoctor');
+                navigation.navigate('Login');
+              },
+            },
+          ],
+        );
+      }
+    }
+  }, [realVersion]);
 
   function submitHandle() {
     if (

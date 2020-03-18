@@ -93,33 +93,29 @@ export function* getVersionDataset({ payload }) {
       if (data) {
         console.log('data.values version FORMATADA');
         console.log(data.values[0].value[11]);
-        // yield put(getVersion.success(data.values));
         yield put(getVersion.success(data.values[0].value[11])); // pega apenas o valor da versão
       } else {
-        // yield put(
-        //   getNotifications.failure(
-        //     'Houve um erro ao gravar os dados no banco do IW',
-        //   ),
-        // );
-        // yield put(getNotifications.failure());
+        yield put(
+          getVersion.failure(
+            'Houve um erro ao gravar os dados da versão no banco do IW'
+          ),
+        );
+        yield put(getVersion.failure());
       }
     } else {
-      console.log('caiu primeiro else data');
-      // yield put(
-      //   getNotifications.failure(
-      //     'Houve um erro ao carregar os dados. Por favor entre em contato com sac@homedoctor.com.br',
-      //   ),
-      // );
-      // yield put(getNotifications.failure());
+      yield put(
+        getVersion.failure(
+          'Houve um erro ao verificar a versão. Por favor entre em contato com sac@homedoctor.com.br',
+        ),
+      );
+      yield put(getVersion.failure());
     }
   } catch (error) {
-    console.log('error requisição version');
-    console.log(error);
-    // yield put(
-    //   getNotifications.failure(
-    //     'Houve um erro ao carregar os dados. Por favor entre em contato com sac@homedoctor.com.br',
-    //   ),
-    // );
-    // yield put(getNotifications.failure());
+    yield put(
+      getVersion.failure(
+        'Houve um erro ao verificar a versão. Por favor entre em contato com sac@homedoctor.com.br',
+      ),
+    );
+    yield put(getVersion.failure());
   }
 }
