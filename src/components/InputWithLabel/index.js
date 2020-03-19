@@ -31,6 +31,7 @@ const InputWithLabel = props => {
               format: 'DD/MM/YYYY',
             }}
             value={props.value}
+            autoCapitalize="none"
           />
         </View>
       </View>

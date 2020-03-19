@@ -51,6 +51,9 @@ export default function RegisterUser({ navigation }) {
     console.log('useEffect de verificação');
     console.log(realVersion);
     if (realVersion !== null) {
+      console.log('typeof');
+      console.log(typeof CURRENT_VERSION);
+      console.log(typeof realVersion);
       if (CURRENT_VERSION !== realVersion) {
         // versões divergentes
         Alert.alert(
@@ -72,15 +75,30 @@ export default function RegisterUser({ navigation }) {
   }, [realVersion]);
 
   function submitHandle() {
-    if (
-      name !== '' &&
-      cpf !== '' &&
-      email !== '' &&
-      password !== '' &&
-      confirmPassword === password &&
-      namePatient !== '' &&
-      birthPatient !== ''
-    ) {
+    let errorMsg = '';
+    if (name === '') {
+      errorMsg += 'O campo Nome é obrigatório.\n';
+    }
+    if (cpf === '') {
+      errorMsg += 'O campo CPF é obrigatório.\n';
+    }
+    if (email === '') {
+      errorMsg += 'O campo E-mail é obrigatório.\n';
+    }
+    if (password === '') {
+      errorMsg += 'O campo Senha é obrigatório.\n';
+    }
+    if (confirmPassword !== password) {
+      errorMsg += 'Campos Senha e Confirme a senha estão diferentes.\n';
+    }
+    if (namePatient === '') {
+      errorMsg += 'O campo Nome do paciente é obrigatório.\n';
+    }
+    if (birthPatient === '') {
+      errorMsg += 'O campo Data de nasc. paciente é obrigatório.\n';
+    }
+
+    if (errorMsg === ''){
       const formatDate = `${birthPatient.substr(6, 4)}-${birthPatient.substr(
         3,
         2,
@@ -99,16 +117,86 @@ export default function RegisterUser({ navigation }) {
         ),
       );
     } else {
-      if (password !== confirmPassword) {
-        Alert.alert(
-          'Erro',
-          'Campos senha e confirme a senha estão diferentes.',
-        );
-      } else {
-        Alert.alert('Erro', 'Preencha todos os campos');
-      }
+      Alert.alert('Erro', errorMsg);
     }
+
+    // if (
+    //   name !== '' &&
+    //   cpf !== '' &&
+    //   email !== '' &&
+    //   password !== '' &&
+    //   confirmPassword === password &&
+    //   namePatient !== '' &&
+    //   birthPatient !== ''
+    // ) {
+    //   const formatDate = `${birthPatient.substr(6, 4)}-${birthPatient.substr(
+    //     3,
+    //     2,
+    //   )}-${birthPatient.substr(0, 2)} 00:00:00.0`;
+    //   let namePatientNoAccent = namePatient.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+    //   dispatch(
+    //     RegisterUserActions.registerUserRequest(
+    //       name,
+    //       cpf,
+    //       email,
+    //       password,
+    //       // namePatient,
+    //       namePatientNoAccent,
+    //       formatDate,
+    //     ),
+    //   );
+    // } else {
+    //   if (password !== confirmPassword) {
+    //     Alert.alert(
+    //       'Erro',
+    //       'Campos senha e confirme a senha estão diferentes.',
+    //     );
+    //   } else {
+    //     Alert.alert('Erro', 'Preencha todos os campos');
+    //   }
+    // }
   }
+
+  // old validation submit
+  // function submitHandle2() {
+  //   if (
+  //     name !== '' &&
+  //     cpf !== '' &&
+  //     email !== '' &&
+  //     password !== '' &&
+  //     confirmPassword === password &&
+  //     namePatient !== '' &&
+  //     birthPatient !== ''
+  //   ) {
+  //     const formatDate = `${birthPatient.substr(6, 4)}-${birthPatient.substr(
+  //       3,
+  //       2,
+  //     )}-${birthPatient.substr(0, 2)} 00:00:00.0`;
+  //     let namePatientNoAccent = namePatient.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+  //     dispatch(
+  //       RegisterUserActions.registerUserRequest(
+  //         name,
+  //         cpf,
+  //         email,
+  //         password,
+  //         // namePatient,
+  //         namePatientNoAccent,
+  //         formatDate,
+  //       ),
+  //     );
+  //   } else {
+  //     if (password !== confirmPassword) {
+  //       Alert.alert(
+  //         'Erro',
+  //         'Campos senha e confirme a senha estão diferentes.',
+  //       );
+  //     } else {
+  //       Alert.alert('Erro', 'Preencha todos os campos');
+  //     }
+  //   }
+  // }
 
   return (
     <ScrollView fillViewport="true" style={styles.form}>

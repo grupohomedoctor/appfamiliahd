@@ -59,8 +59,8 @@ export function* getVersionDataset({ payload }) {
     </soapenv:Body>
   </soapenv:Envelope>`;
 
-    console.log('xmls');
-    console.log(xmls);
+    // console.log('xmls');
+    // console.log(xmls);
 
     const headers = { headers: { 'Content-Type': 'text/xml' } };
 

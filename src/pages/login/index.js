@@ -96,6 +96,7 @@ function Login({ navigation }) {
             ref={input => (passwordInput = input)}
             editable={!loading}
             returnKeyType="send"
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.containerForgot}>

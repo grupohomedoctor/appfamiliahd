@@ -51,10 +51,10 @@ const Home = props => {
   // TEMPORARIO
   const dataFormat = () => {
     let data = pacienteDataNasc
-      // .split(' ')[0]
-      // .split('-')
-      // .reverse()
-      // .join('/');
+      .split(' ')[0]
+      .split('-')
+      .reverse()
+      .join('/');
     return data;
   };
 
@@ -68,16 +68,11 @@ const Home = props => {
   }
 
   useEffect(() => {
+    dispatch(getVersion.getVersion());
     if (IDAdmission) {
       dispatch(getNotifications.getNotifications(IDAdmission));
-      dispatch(getVersion.getVersion());
     }
   }, [IDAdmission, dispatch]);
-
-  // getVersion verificando erro 500
-  // useEffect(() => {
-  //   dispatch(getVersion.getVersion(IDAdmission));
-  // }, [versionError, IDAdmission, dispatch]);
 
   // Tratamento de resultado de solicitação
   useEffect(() => {
@@ -102,6 +97,9 @@ const Home = props => {
     console.log('useEffect de verificação');
     console.log(realVersion);
     if (realVersion !== null) {
+      console.log('typeof');
+      console.log(typeof CURRENT_VERSION);
+      console.log(typeof realVersion);
       if (CURRENT_VERSION !== realVersion) {
         // versões divergentes
         Alert.alert(
@@ -122,6 +120,7 @@ const Home = props => {
       }
     }
   }, [realVersion]);
+  // }, [props.navigation, clearAsyncStorage, realVersion]);
 
   const notificationClosedHandler = () => {
     setNotificationModalIsOpen(false);

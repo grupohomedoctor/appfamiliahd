@@ -85,6 +85,8 @@ export function* Login({ payload }) {
     // console.log(data.values);
 
     if (data.columns.includes('ok')) {
+      console.log('RETORNO DADOS USER');
+      console.log(data);
       if (data.values[0].value[0] && data.values[0].value[0] !== 'false') {
         yield put(
           AsyncStorageActions.setDataStorage(
