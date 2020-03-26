@@ -40,11 +40,14 @@ function formatXml(data, typeUser) {
 }
 
 export function* Post({ payload }) {
+  console.log('payload')
+  console.log(payload)
   try {
     let image = '';
     if (payload.files) {
       const upload = yield call(uploadFiles, payload.files);
-
+      console.log('upload')
+      console.log(upload)
       if (!upload) {
         throw new Error('files');
       }
@@ -68,6 +71,11 @@ export function* Post({ payload }) {
               <initialValue>${url}</initialValue>
             </item>`;
     }
+
+    console.log('payload.base')
+    console.log(payload.base)
+    console.log('payload.Base')
+    console.log(payload.Base)
 
     let xmls = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.dataservice.ecm.technology.totvs.com/">
       <soapenv:Header/>
@@ -126,11 +134,18 @@ export function* Post({ payload }) {
 
     const headers = { headers: { 'Content-Type': 'text/xml' } };
 
+    console.log('xmls')
+    console.log(xmls)
+
     let data = yield call(fetch, `${SERVER_FLUIG}/webdesk/ECMDatasetService`, {
       method: 'POST',
       headers,
       body: xmls,
     });
+
+    console.log('data exams')
+    console.log(data)
+
     if (data) {
       const jsonResponse = yield data.text();
       data = yield call(formatXml, jsonResponse);
@@ -155,6 +170,8 @@ export function* Post({ payload }) {
       yield put(homePostResult.failure());
     }
   } catch (error) {
+    console.log('error')
+    console.log(error)
     yield put(
       dbConnection.postFailure(
         'Houve um erro ao carregar os dados. Por favor entre em contato com sac@homedoctor.com.br',

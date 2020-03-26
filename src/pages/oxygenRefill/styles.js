@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   row: {
@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
   nunito: {
     fontFamily: 'Nunito-Regular',
     fontSize: 20,
+    textAlign: 'justify',
+  },
+  nunitoBold: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
     textAlign: 'justify',
   },
   headerRow: {
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
   },
-  scrollChildren: { marginBottom: 30 },
+  scrollChildren: {marginBottom: 30},
 });
 
 export default styles;

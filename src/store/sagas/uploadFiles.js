@@ -15,6 +15,12 @@ import { apiFluig } from '../../services/apis';
 import auth from '../../services/Oauth';
 
 export function* uploadFiles(files) {
+  console.log(POST_OAUTH_CUSTOMER_KEY)
+  console.log(POST_OAUTH_CUSTOMER_SECRET_KEY)
+  console.log(POST_OAUTH_TOKEN)
+  console.log(POST_OAUTH_TOKEN_SECRET)
+  console.log('auth')
+  console.log(auth)
   try {
     const headers = yield call(
       auth,
@@ -30,6 +36,8 @@ export function* uploadFiles(files) {
 
     return data.files[0];
   } catch (err) {
+    console.log('err no uploadFiles')
+    console.log(err)
     return false;
   }
 }

@@ -52,9 +52,9 @@ export default function RegisterUser({ navigation }) {
     console.log(realVersion);
     if (realVersion !== null) {
       console.log('typeof');
-      console.log(typeof CURRENT_VERSION);
-      console.log(typeof realVersion);
-      if (CURRENT_VERSION !== realVersion) {
+      console.log(CURRENT_VERSION + '.');
+      console.log(realVersion + '.');
+      if (CURRENT_VERSION != realVersion) {
         // versões divergentes
         Alert.alert(
           'Seu aplicativo está em uma versão desatualizada',

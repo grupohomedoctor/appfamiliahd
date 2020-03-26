@@ -131,8 +131,8 @@ android {
         applicationId "com.homedoctor"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 13
-        versionName "1.13"
+        versionCode 4
+        versionName "1.4"
     }
     splits {
         abi {
