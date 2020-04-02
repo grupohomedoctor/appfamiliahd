@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'justify',
   },
+  nunitoBoldRed: {
+    color: 'red',
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
+    textAlign: 'justify',
+  },
   headerRow: {
     paddingVertical: 30,
     justifyContent: 'space-between',
@@ -36,7 +42,7 @@ const styles = StyleSheet.create({
   },
   containerObs: {
     paddingHorizontal: 30,
-    paddingVertical: 14,
+    paddingVertical: 22,
   },
   icon: {
     paddingRight: 20,

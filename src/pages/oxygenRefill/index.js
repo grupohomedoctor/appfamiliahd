@@ -53,6 +53,17 @@ const OxygenRefill = () => {
 
       <ScrollView fillViewport="true" style={styles.form}>
         <View style={styles.scrollChildren} layout_height="wrap_content">
+          <View style={styles.containerObs}>
+            <Text style={styles.nunitoBold}>Fique atento!</Text>
+            <Text style={styles.nunitoBold}>
+              Somente deve ser solicitada recarga quando o cilindro atingir 50
+              bars.
+            </Text>
+            <Text style={styles.nunitoBoldRed}>
+              As recargas solicitadas serão realizadas no dia seguinte no
+              horário comercial.
+            </Text>
+          </View>
           {/* <View style={styles.containerObs}>
             <Text style={styles.nunito}>
               Fique atento! Remoções solicitadas fora do prazo de antecedência
@@ -95,18 +106,6 @@ const OxygenRefill = () => {
             onPress={submitHandle}
             loading={loading}
           />
-
-          <View style={styles.containerObs}>
-            <Text style={styles.nunitoBold}>Fique atento!</Text>
-            <Text style={styles.nunitoBold}>
-              Somente deve ser solicitada recarga quando o cilindro atingir 50
-              bars.
-            </Text>
-            <Text style={styles.nunitoBold}>
-              As recargas solicitadas serão realizadas no dia seguinte no
-              horário comercial.
-            </Text>
-          </View>
         </View>
       </ScrollView>
     </>
