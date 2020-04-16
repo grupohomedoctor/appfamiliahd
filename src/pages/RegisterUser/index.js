@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Alert, Linking } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {ScrollView, View, Alert, Linking} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
-import { Creators as RegisterUserActions } from '../../store/ducks/registerUser';
+import {Creators as RegisterUserActions} from '../../store/ducks/registerUser';
 
 import SolicitationHeader from '../../components/SolicitationHeader';
 import InputWithLabel from '../../components/InputWithLabel';
 import GradientButton from '../../components/GradientButton';
 
-import { Creators as getVersion } from '../../store/ducks/getVersion';
-import { CURRENT_VERSION } from 'react-native-dotenv';
+import {Creators as getVersion} from '../../store/ducks/getVersion';
+import {CURRENT_VERSION} from 'react-native-dotenv';
 
 import styles from './styles';
 
-export default function RegisterUser({ navigation }) {
+export default function RegisterUser({navigation}) {
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ export default function RegisterUser({ navigation }) {
   // const [emailPatient, setEmailPatient] = useState('');
   const [birthPatient, setBirthPatient] = useState('');
 
-  const { loading, error, success } = useSelector(state => state.registerUser);
+  const {loading, error, success} = useSelector(state => state.registerUser);
 
   const dispatch = useDispatch();
 
@@ -48,12 +48,17 @@ export default function RegisterUser({ navigation }) {
 
   // verifica se a versão está correta
   useEffect(() => {
-    console.log('useEffect de verificação');
-    console.log(realVersion);
+    // console.log('useEffect de verificação');
+    // console.log(realVersion);
     if (realVersion !== null) {
-      console.log('typeof');
-      console.log(CURRENT_VERSION + '.');
-      console.log(realVersion + '.');
+      // if (realVersion !== null && realVersion !== undefined) {
+      // console.log('typeof');
+      // console.log(typeof CURRENT_VERSION);
+      // console.log(typeof realVersion);
+      // console.log('CURRENT_VERSION');
+      // console.log(CURRENT_VERSION);
+      // console.log('realVersion');
+      // console.log(realVersion);
       if (CURRENT_VERSION != realVersion) {
         // versões divergentes
         Alert.alert(
@@ -64,7 +69,9 @@ export default function RegisterUser({ navigation }) {
               text: 'Ok',
               style: 'destructive',
               onPress: () => {
-                Linking.openURL('https://play.google.com/store/apps/details?id=com.homedoctor');
+                Linking.openURL(
+                  'https://play.google.com/store/apps/details?id=com.homedoctor',
+                );
                 navigation.navigate('Login');
               },
             },
@@ -98,12 +105,14 @@ export default function RegisterUser({ navigation }) {
       errorMsg += 'O campo Data de nasc. paciente é obrigatório.\n';
     }
 
-    if (errorMsg === ''){
+    if (errorMsg === '') {
       const formatDate = `${birthPatient.substr(6, 4)}-${birthPatient.substr(
         3,
         2,
       )}-${birthPatient.substr(0, 2)} 00:00:00.0`;
-      let namePatientNoAccent = namePatient.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+      let namePatientNoAccent = namePatient
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
 
       dispatch(
         RegisterUserActions.registerUserRequest(

@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import {
   SERVER_FLUIG,
   COMPANY_FLUIG,
@@ -8,13 +8,13 @@ import {
   IDException,
 } from 'react-native-dotenv';
 import xml2js from 'react-native-xml2js';
-import { Creators as dbConnection } from '../ducks/dbConnection';
-import { Creators as homePostResult } from '../ducks/homePostResult';
-import { navigate } from '../../services/navigation';
-import { uploadFiles, saveFiles, getDownloadUrl } from './uploadFiles';
+import {Creators as dbConnection} from '../ducks/dbConnection';
+import {Creators as homePostResult} from '../ducks/homePostResult';
+import {navigate} from '../../services/navigation';
+import {uploadFiles, saveFiles, getDownloadUrl} from './uploadFiles';
 
 function formatXml(data, typeUser) {
-  const parser = new xml2js.Parser({ ignoreAttrs: true });
+  const parser = new xml2js.Parser({ignoreAttrs: true});
   let obj = {};
 
   // eslint-disable-next-line handle-callback-err
@@ -39,15 +39,15 @@ function formatXml(data, typeUser) {
   return obj;
 }
 
-export function* Post({ payload }) {
-  console.log('payload')
-  console.log(payload)
+export function* Post({payload}) {
+  // console.log('payload')
+  // console.log(payload)
   try {
     let image = '';
     if (payload.files) {
       const upload = yield call(uploadFiles, payload.files);
-      console.log('upload')
-      console.log(upload)
+      // console.log('upload')
+      // console.log(upload)
       if (!upload) {
         throw new Error('files');
       }
@@ -72,10 +72,10 @@ export function* Post({ payload }) {
             </item>`;
     }
 
-    console.log('payload.base')
-    console.log(payload.base)
-    console.log('payload.Base')
-    console.log(payload.Base)
+    // console.log('payload.base')
+    // console.log(payload.base)
+    // console.log('payload.Base')
+    // console.log(payload.Base)
 
     let xmls = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.dataservice.ecm.technology.totvs.com/">
       <soapenv:Header/>
@@ -132,10 +132,10 @@ export function* Post({ payload }) {
       </soapenv:Body>
     </soapenv:Envelope>`;
 
-    const headers = { headers: { 'Content-Type': 'text/xml' } };
+    const headers = {headers: {'Content-Type': 'text/xml'}};
 
-    console.log('xmls')
-    console.log(xmls)
+    // console.log('xmls')
+    // console.log(xmls)
 
     let data = yield call(fetch, `${SERVER_FLUIG}/webdesk/ECMDatasetService`, {
       method: 'POST',
@@ -143,8 +143,8 @@ export function* Post({ payload }) {
       body: xmls,
     });
 
-    console.log('data exams')
-    console.log(data)
+    // console.log('data exams')
+    // console.log(data)
 
     if (data) {
       const jsonResponse = yield data.text();
@@ -170,8 +170,8 @@ export function* Post({ payload }) {
       yield put(homePostResult.failure());
     }
   } catch (error) {
-    console.log('error')
-    console.log(error)
+    // console.log('error')
+    // console.log(error)
     yield put(
       dbConnection.postFailure(
         'Houve um erro ao carregar os dados. Por favor entre em contato com sac@homedoctor.com.br',

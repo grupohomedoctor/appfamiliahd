@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import {
   SERVER_FLUIG,
   COMPANY_FLUIG,
@@ -7,12 +7,12 @@ import {
   DATASET_FLUIG,
 } from 'react-native-dotenv';
 import xml2js from 'react-native-xml2js';
-import { Creators as LoginActions } from './../ducks/login';
-import { Creators as AsyncStorageActions } from './../ducks/asyncStorage';
-import { navigate } from '../../services/navigation';
+import {Creators as LoginActions} from './../ducks/login';
+import {Creators as AsyncStorageActions} from './../ducks/asyncStorage';
+import {navigate} from '../../services/navigation';
 
 function formatXml(data, typeUser) {
-  const parser = new xml2js.Parser({ ignoreAttrs: true });
+  const parser = new xml2js.Parser({ignoreAttrs: true});
   let obj = {};
 
   // eslint-disable-next-line handle-callback-err
@@ -37,7 +37,7 @@ function formatXml(data, typeUser) {
   return obj;
 }
 
-export function* Login({ payload }) {
+export function* Login({payload}) {
   try {
     const xmls = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.dataservice.ecm.technology.totvs.com/">
       <soapenv:Header/>
@@ -69,7 +69,7 @@ export function* Login({ payload }) {
       </soapenv:Body>
     </soapenv:Envelope>`;
 
-    const headers = { headers: { 'Content-Type': 'text/xml' } };
+    const headers = {headers: {'Content-Type': 'text/xml'}};
 
     let data = yield fetch(`${SERVER_FLUIG}/webdesk/ECMDatasetService`, {
       method: 'POST',
@@ -85,8 +85,8 @@ export function* Login({ payload }) {
     // console.log(data.values);
 
     if (data.columns.includes('ok')) {
-      console.log('RETORNO DADOS USER');
-      console.log(data);
+      // console.log('RETORNO DADOS USER');
+      // console.log(data);
       if (data.values[0].value[0] && data.values[0].value[0] !== 'false') {
         yield put(
           AsyncStorageActions.setDataStorage(

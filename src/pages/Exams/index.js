@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Image, Alert, Platform, BackHandler, Text } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Image, Alert, Platform, BackHandler, Text} from 'react-native';
 import styles from './styles';
 import SolicitationHeader from '../../components/SolicitationHeader';
 import GradientButton from '../../components/GradientButton';
 import ImagePicker from 'react-native-image-picker';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
-import { Creators as dbConnectionActions } from '../../store/ducks/dbConnection';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {Creators as dbConnectionActions} from '../../store/ducks/dbConnection';
 import documentIcon from '../../assets/icons/document-icon.png';
-import { Component } from 'react';
+import {Component} from 'react';
 
 const Exams = props => {
   const [medicalPrescription, setMedicalPrescription] = useState('');
@@ -22,7 +22,7 @@ const Exams = props => {
   const submitHandle = () => {
     if (!medicalPrescription) {
       Alert.alert('Faltam alguns dados!', 'Por favor escolha uma imagem!', [
-        { text: 'Ok', style: 'destructive', onPress: null },
+        {text: 'Ok', style: 'destructive', onPress: null},
       ]);
     } else {
       // console.log('medicalPrescription.file');
@@ -57,7 +57,7 @@ const Exams = props => {
   const uploadImageHandle = () => {
     ImagePicker.showImagePicker(imagePickerOptions, response => {
       if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        // console.log('ImagePicker Error: ', response.error);
       } else if (!response.didCancel) {
         const file = new FormData();
         const [prefix, suffix] = response.fileName.split('.');

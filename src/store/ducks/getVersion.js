@@ -27,8 +27,8 @@ export default function getVersion(state = INITIAL_STATE, action) {
         // version: [],
       };
     case Types.SUCCESS_GETVERSION:
-      console.log('version ducks');
-      console.log(action.payload);
+      // console.log('version ducks');
+      // console.log(action.payload);
       return {
         ...state,
         error: false,

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Alert, Text, Linking } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, ScrollView, Alert, Text, Linking} from 'react-native';
 import style from './style';
 import HomeHeader from '../../components/HomeHeader';
 import HomeMenu from '../../components/HomeMenu';
 import SolicitationHistory from '../../components/SolicitationHistory';
-import { useDispatch, useSelector } from 'react-redux';
-import { Creators as homePostResult } from '../../store/ducks/homePostResult';
+import {useDispatch, useSelector} from 'react-redux';
+import {Creators as homePostResult} from '../../store/ducks/homePostResult';
 // import { Creators as getOpenSolicitations } from '../../store/ducks/getOpenSolicitations';
-import { Creators as getNotifications } from '../../store/ducks/getNotifications';
-import { Creators as getVersion } from '../../store/ducks/getVersion';
-import { Creators as AsyncStorageActions } from '../../store/ducks/asyncStorage';
-import { CURRENT_VERSION } from 'react-native-dotenv';
+import {Creators as getNotifications} from '../../store/ducks/getNotifications';
+import {Creators as getVersion} from '../../store/ducks/getVersion';
+import {Creators as AsyncStorageActions} from '../../store/ducks/asyncStorage';
+import {CURRENT_VERSION} from 'react-native-dotenv';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import SolicitationHistoryModal from '../../components/SolicitationHistoryModal';
@@ -41,9 +41,9 @@ const Home = props => {
   );
   const realVersion = useSelector(state => state.getVersion.version);
   const versionError = useSelector(state => state.getVersion.error);
-  const allState = useSelector(state => state.getVersion);
-  console.log('allState');
-  console.log(allState);
+  // const allState = useSelector(state => state.getVersion);
+  // console.log('allState');
+  // console.log(allState);
 
   const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
   const [notificationModalIsOpen, setNotificationModalIsOpen] = useState(false);
@@ -80,13 +80,13 @@ const Home = props => {
       Alert.alert(
         'Houve um erro ao abrir a solicitação',
         'Por favor entre em contato com sac@homedoctor.com.br',
-        [{ text: 'Ok', style: 'destructive', onPress: null }],
+        [{text: 'Ok', style: 'destructive', onPress: null}],
       );
     } else if (success) {
       Alert.alert(
         'Solicitação aberta com sucesso!',
         'Acompanhe pelo histórico',
-        [{ text: 'Ok', style: 'destructive', onPress: null }],
+        [{text: 'Ok', style: 'destructive', onPress: null}],
       );
     }
     dispatch(homePostResult.default());
@@ -94,13 +94,18 @@ const Home = props => {
 
   // verifica se a versão está correta
   useEffect(() => {
-    console.log('useEffect de verificação');
-    console.log(realVersion);
-    if (realVersion !== null) {
-      console.log('typeof');
-      console.log(typeof CURRENT_VERSION);
-      console.log(typeof realVersion);
-      if (CURRENT_VERSION !== realVersion) {
+    // console.log('useEffect de verificação');
+    // console.log(realVersion);
+    if (realVersion != null) {
+      // if (realVersion != null && realVersion != undefined) {
+      // console.log('typeof');
+      // console.log(typeof CURRENT_VERSION);
+      // console.log(typeof realVersion);
+      // console.log('CURRENT_VERSION');
+      // console.log(CURRENT_VERSION);
+      // console.log('realVersion');
+      // console.log(realVersion);
+      if (CURRENT_VERSION != realVersion) {
         // versões divergentes
         Alert.alert(
           'Seu aplicativo está em uma versão desatualizada',
@@ -110,7 +115,9 @@ const Home = props => {
               text: 'Ok',
               style: 'destructive',
               onPress: () => {
-                Linking.openURL('https://play.google.com/store/apps/details?id=com.homedoctor');
+                Linking.openURL(
+                  'https://play.google.com/store/apps/details?id=com.homedoctor',
+                );
                 clearAsyncStorage();
                 props.navigation.navigate('Login');
               },
@@ -136,7 +143,7 @@ const Home = props => {
         notificationsLoading={notificationsLoading}
       />
       <View style={style.HomeMenu}>
-        <View style={{ margin: 8 }}>
+        <View style={{margin: 8}}>
           <Text style={style.nunitoBold}>Paciente: {pacienteNome}</Text>
           <Text style={style.nunitoBold}>Nasc: {dataFormat()}</Text>
         </View>

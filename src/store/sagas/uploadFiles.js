@@ -1,4 +1,4 @@
-import { call } from 'redux-saga/effects';
+import {call} from 'redux-saga/effects';
 import {
   POST_OAUTH_CUSTOMER_KEY,
   POST_OAUTH_CUSTOMER_SECRET_KEY,
@@ -11,16 +11,16 @@ import {
   ID_FOLDER,
 } from 'react-native-dotenv';
 
-import { apiFluig } from '../../services/apis';
+import {apiFluig} from '../../services/apis';
 import auth from '../../services/Oauth';
 
 export function* uploadFiles(files) {
-  console.log(POST_OAUTH_CUSTOMER_KEY)
-  console.log(POST_OAUTH_CUSTOMER_SECRET_KEY)
-  console.log(POST_OAUTH_TOKEN)
-  console.log(POST_OAUTH_TOKEN_SECRET)
-  console.log('auth')
-  console.log(auth)
+  // console.log(POST_OAUTH_CUSTOMER_KEY)
+  // console.log(POST_OAUTH_CUSTOMER_SECRET_KEY)
+  // console.log(POST_OAUTH_TOKEN)
+  // console.log(POST_OAUTH_TOKEN_SECRET)
+  // console.log('auth')
+  // console.log(auth)
   try {
     const headers = yield call(
       auth,
@@ -32,12 +32,12 @@ export function* uploadFiles(files) {
       'POST',
     );
 
-    const { data } = yield call(apiFluig.post, 'ecm/upload', files, headers);
+    const {data} = yield call(apiFluig.post, 'ecm/upload', files, headers);
 
     return data.files[0];
   } catch (err) {
-    console.log('err no uploadFiles')
-    console.log(err)
+    // console.log('err no uploadFiles')
+    // console.log(err)
     return false;
   }
 }
@@ -66,7 +66,7 @@ export function* saveFiles(files) {
 
     const {
       data: {
-        content: { id },
+        content: {id},
       },
     } = yield call(
       apiFluig.post,
@@ -94,7 +94,7 @@ export function* getDownloadUrl(id) {
     );
 
     const {
-      data: { content },
+      data: {content},
     } = yield call(
       apiFluig.get,
       `api/public/2.0/documents/getDownloadURL/${id}`,

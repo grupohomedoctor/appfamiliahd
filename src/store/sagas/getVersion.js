@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import {
   SERVER_FLUIG,
   COMPANY_FLUIG,
@@ -8,11 +8,11 @@ import {
 } from 'react-native-dotenv';
 import xml2js from 'react-native-xml2js';
 // import { Creators as getNotifications } from '../ducks/getNotifications';
-import { Creators as getVersion } from '../ducks/getVersion';
+import {Creators as getVersion} from '../ducks/getVersion';
 // import { Creators as getOpenSolicitations } from '../ducks/getOpenSolicitations';
 
 function formatXml(data, typeUser) {
-  const parser = new xml2js.Parser({ ignoreAttrs: true });
+  const parser = new xml2js.Parser({ignoreAttrs: true});
   let obj = {};
 
   // eslint-disable-next-line handle-callback-err
@@ -37,9 +37,7 @@ function formatXml(data, typeUser) {
   return obj;
 }
 
-export function* getVersionDataset({ payload }) {
-  console.log('version payload');
-  console.log(payload);
+export function* getVersionDataset({payload}) {
   try {
     const xmls = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.dataservice.ecm.technology.totvs.com/">
     <soapenv:Header/>
@@ -62,7 +60,7 @@ export function* getVersionDataset({ payload }) {
     // console.log('xmls');
     // console.log(xmls);
 
-    const headers = { headers: { 'Content-Type': 'text/xml' } };
+    const headers = {headers: {'Content-Type': 'text/xml'}};
 
     let data = yield call(fetch, `${SERVER_FLUIG}/webdesk/ECMDatasetService`, {
       method: 'POST',
@@ -70,34 +68,27 @@ export function* getVersionDataset({ payload }) {
       body: xmls,
     });
 
-    console.log('primeiro retorno getVersion');
-    console.log(data);
-    // console.log(data.data);
-    // console.log(data.values);
-
     if (data) {
-      console.log('caiu primeiro if data');
       const jsonResponse = yield data.text();
       data = yield call(formatXml, jsonResponse);
 
-      // console.log('retorno getNotification nova call');
-      // console.log(jsonResponse);
-
       // yield put(getOpenSolicitations.getOpenSolicitations(payload.IDAdmission));
 
-      console.log('data version');
-      console.log(data);
-      console.log('data.values version');
-      console.log(data.values);
+      // console.log('data version');
+      // console.log(data);
+      // console.log('data.values version');
+      // console.log(data.values);
 
       if (data) {
-        console.log('data.values version FORMATADA');
-        console.log(data.values[0].value[11]);
+        // console.log('data.values version ORIGINAL');
+        // console.log(data.values);
+        // console.log('data.values version FORMATADA');
+        // console.log(data.values[0].value[11]);
         yield put(getVersion.success(data.values[0].value[11])); // pega apenas o valor da versão
       } else {
         yield put(
           getVersion.failure(
-            'Houve um erro ao gravar os dados da versão no banco do IW'
+            'Houve um erro ao gravar os dados da versão no banco do IW',
           ),
         );
         yield put(getVersion.failure());
