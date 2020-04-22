@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import {
   SERVER_FLUIG,
   COMPANY_FLUIG,
@@ -7,10 +7,10 @@ import {
   DATASET_REGISTER_USER,
 } from 'react-native-dotenv';
 import xml2js from 'react-native-xml2js';
-import { Creators as RegisterUser } from '../ducks/registerUser';
+import {Creators as RegisterUser} from '../ducks/registerUser';
 
 function formatXml(data) {
-  const parser = new xml2js.Parser({ ignoreAttrs: true });
+  const parser = new xml2js.Parser({ignoreAttrs: true});
   let obj = {};
 
   // eslint-disable-next-line handle-callback-err
@@ -104,7 +104,9 @@ export function* registerUser({
       </ws:getDataset>
     </soapenv:Body>
   </soapenv:Envelope>`;
-    const headers = { headers: { 'Content-Type': 'text/xml' } };
+    const headers = {headers: {'Content-Type': 'text/xml'}};
+
+    // console.log(xmls);
 
     let data = yield fetch(`${SERVER_FLUIG}/webdesk/ECMDatasetService`, {
       method: 'POST',
@@ -112,14 +114,37 @@ export function* registerUser({
       body: xmls,
     }).then(response => response.text());
 
+    // console.log('cadastro user antes retorno');
+    // console.log(data);
+
     data = yield call(formatXml, data);
+
+    // console.log('cadastro user retorno');
+    // console.log(data);
 
     if (data.STATUS === 'Usuario cadastrado com sucesso') {
       yield put(RegisterUser.registerUserSuccess());
     } else {
-      yield put(RegisterUser.registerUserFailure(data.STATUS));
+      // console.log('cadastro user else');
+      // console.log(data);
+      let statusError = data.STATUS;
+      let msgError = '';
+      if (
+        statusError.length === 61 &&
+        statusError.indexOf(
+          'Nome do Paciente, e-mail e data de nascimento n',
+        ) !== -1
+      ) {
+        msgError =
+          'Nome do Paciente, e-mail e data de nascimento não encontrados';
+      } else {
+        msgError = statusError;
+      }
+      yield put(RegisterUser.registerUserFailure(msgError));
     }
   } catch (error) {
+    // console.log('error cadastro');
+    // console.log(error);
     yield put(RegisterUser.registerUserFailure('Erro ao cadastrar o usuário'));
   }
 }

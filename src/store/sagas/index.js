@@ -7,6 +7,7 @@ import { Types as updateNotificationTypes } from '../ducks/updateNotifications';
 import { Types as getOpenSolicitationsTypes } from '../ducks/getOpenSolicitations';
 import { Types as RegisterUserTypes } from '../ducks/registerUser';
 import { Types as ForgotTypes } from '../ducks/forgot';
+import { Types as VersionTypes } from '../ducks/getVersion';
 
 import { Login } from './login';
 import { Post } from './dbConnection';
@@ -15,6 +16,7 @@ import { updateNotificationsDataset } from './updateNotifications';
 import { getOpenSolicitationsDataset } from './getOpenSolicitations';
 import { registerUser } from './registerUser';
 import { forgot } from './forgot';
+import { getVersionDataset } from './getVersion';
 
 export default function* rootSaga() {
   return yield all([
@@ -24,6 +26,7 @@ export default function* rootSaga() {
       getNotificationTypes.REQUEST_GETNOTIFICATIONS,
       getNotificationsDataset,
     ),
+    takeEvery(VersionTypes.REQUEST_GETVERSION, getVersionDataset),
     takeEvery(
       updateNotificationTypes.UPDATE_REQUEST,
       updateNotificationsDataset,

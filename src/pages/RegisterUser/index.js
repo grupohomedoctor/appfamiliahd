@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Alert } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {ScrollView, View, Alert, Linking} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
-import { Creators as RegisterUserActions } from '../../store/ducks/registerUser';
+import {Creators as RegisterUserActions} from '../../store/ducks/registerUser';
 
 import SolicitationHeader from '../../components/SolicitationHeader';
 import InputWithLabel from '../../components/InputWithLabel';
 import GradientButton from '../../components/GradientButton';
 
+import {Creators as getVersion} from '../../store/ducks/getVersion';
+import {CURRENT_VERSION} from 'react-native-dotenv';
+
 import styles from './styles';
 
-export default function RegisterUser({ navigation }) {
+export default function RegisterUser({navigation}) {
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
@@ -20,9 +23,11 @@ export default function RegisterUser({ navigation }) {
   // const [emailPatient, setEmailPatient] = useState('');
   const [birthPatient, setBirthPatient] = useState('');
 
-  const { loading, error, success } = useSelector(state => state.registerUser);
+  const {loading, error, success} = useSelector(state => state.registerUser);
 
   const dispatch = useDispatch();
+
+  const realVersion = useSelector(state => state.getVersion.version);
 
   useEffect(() => {
     if (error) {
@@ -35,24 +40,79 @@ export default function RegisterUser({ navigation }) {
       navigation.navigate('Login');
     }
   }, [dispatch, error, navigation, success]);
-  // useEffect(() => {
-  // }, [dispatch, error, navigation, success, namePatient]);
+
+  // verificando versão no cadastro
+  useEffect(() => {
+    dispatch(getVersion.getVersion());
+  }, [dispatch]);
+
+  // verifica se a versão está correta
+  useEffect(() => {
+    // console.log('useEffect de verificação');
+    // console.log(realVersion);
+    if (realVersion !== null) {
+      // if (realVersion !== null && realVersion !== undefined) {
+      // console.log('typeof');
+      // console.log(typeof CURRENT_VERSION);
+      // console.log(typeof realVersion);
+      // console.log('CURRENT_VERSION');
+      // console.log(CURRENT_VERSION);
+      // console.log('realVersion');
+      // console.log(realVersion);
+      if (CURRENT_VERSION != realVersion) {
+        // versões divergentes
+        Alert.alert(
+          'Seu aplicativo está em uma versão desatualizada',
+          'Realize a atualização do seu aplicativo na Play Store',
+          [
+            {
+              text: 'Ok',
+              style: 'destructive',
+              onPress: () => {
+                Linking.openURL(
+                  'https://play.google.com/store/apps/details?id=com.homedoctor',
+                );
+                navigation.navigate('Login');
+              },
+            },
+          ],
+        );
+      }
+    }
+  }, [realVersion]);
 
   function submitHandle() {
-    if (
-      name !== '' &&
-      cpf !== '' &&
-      email !== '' &&
-      password !== '' &&
-      confirmPassword === password &&
-      namePatient !== '' &&
-      birthPatient !== ''
-    ) {
+    let errorMsg = '';
+    if (name === '') {
+      errorMsg += 'O campo Nome é obrigatório.\n';
+    }
+    if (cpf === '') {
+      errorMsg += 'O campo CPF é obrigatório.\n';
+    }
+    if (email === '') {
+      errorMsg += 'O campo E-mail é obrigatório.\n';
+    }
+    if (password === '') {
+      errorMsg += 'O campo Senha é obrigatório.\n';
+    }
+    if (confirmPassword !== password) {
+      errorMsg += 'Campos Senha e Confirme a senha estão diferentes.\n';
+    }
+    if (namePatient === '') {
+      errorMsg += 'O campo Nome do paciente é obrigatório.\n';
+    }
+    if (birthPatient === '') {
+      errorMsg += 'O campo Data de nasc. paciente é obrigatório.\n';
+    }
+
+    if (errorMsg === '') {
       const formatDate = `${birthPatient.substr(6, 4)}-${birthPatient.substr(
         3,
         2,
       )}-${birthPatient.substr(0, 2)} 00:00:00.0`;
-      let namePatientNoAccent = namePatient.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+      let namePatientNoAccent = namePatient
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
 
       dispatch(
         RegisterUserActions.registerUserRequest(
@@ -66,16 +126,86 @@ export default function RegisterUser({ navigation }) {
         ),
       );
     } else {
-      if (password !== confirmPassword) {
-        Alert.alert(
-          'Erro',
-          'Campos senha e confirme a senha estão diferentes.',
-        );
-      } else {
-        Alert.alert('Erro', 'Preencha todos os campos');
-      }
+      Alert.alert('Erro', errorMsg);
     }
+
+    // if (
+    //   name !== '' &&
+    //   cpf !== '' &&
+    //   email !== '' &&
+    //   password !== '' &&
+    //   confirmPassword === password &&
+    //   namePatient !== '' &&
+    //   birthPatient !== ''
+    // ) {
+    //   const formatDate = `${birthPatient.substr(6, 4)}-${birthPatient.substr(
+    //     3,
+    //     2,
+    //   )}-${birthPatient.substr(0, 2)} 00:00:00.0`;
+    //   let namePatientNoAccent = namePatient.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+    //   dispatch(
+    //     RegisterUserActions.registerUserRequest(
+    //       name,
+    //       cpf,
+    //       email,
+    //       password,
+    //       // namePatient,
+    //       namePatientNoAccent,
+    //       formatDate,
+    //     ),
+    //   );
+    // } else {
+    //   if (password !== confirmPassword) {
+    //     Alert.alert(
+    //       'Erro',
+    //       'Campos senha e confirme a senha estão diferentes.',
+    //     );
+    //   } else {
+    //     Alert.alert('Erro', 'Preencha todos os campos');
+    //   }
+    // }
   }
+
+  // old validation submit
+  // function submitHandle2() {
+  //   if (
+  //     name !== '' &&
+  //     cpf !== '' &&
+  //     email !== '' &&
+  //     password !== '' &&
+  //     confirmPassword === password &&
+  //     namePatient !== '' &&
+  //     birthPatient !== ''
+  //   ) {
+  //     const formatDate = `${birthPatient.substr(6, 4)}-${birthPatient.substr(
+  //       3,
+  //       2,
+  //     )}-${birthPatient.substr(0, 2)} 00:00:00.0`;
+  //     let namePatientNoAccent = namePatient.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+  //     dispatch(
+  //       RegisterUserActions.registerUserRequest(
+  //         name,
+  //         cpf,
+  //         email,
+  //         password,
+  //         // namePatient,
+  //         namePatientNoAccent,
+  //         formatDate,
+  //       ),
+  //     );
+  //   } else {
+  //     if (password !== confirmPassword) {
+  //       Alert.alert(
+  //         'Erro',
+  //         'Campos senha e confirme a senha estão diferentes.',
+  //       );
+  //     } else {
+  //       Alert.alert('Erro', 'Preencha todos os campos');
+  //     }
+  //   }
+  // }
 
   return (
     <ScrollView fillViewport="true" style={styles.form}>

@@ -9,6 +9,7 @@ import getNotifications from './getNotifications';
 import updateNotifications from './updateNotifications';
 import registerUser from './registerUser';
 import forgot from './forgot';
+import getVersion from './getVersion';
 
 export default combineReducers({
   home,
@@ -20,4 +21,5 @@ export default combineReducers({
   updateNotifications,
   registerUser,
   forgot,
+  getVersion,
 });

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
+import React, {useState} from 'react';
+import {View, ScrollView, Alert} from 'react-native';
 import styles from './styles';
 import SolicitationHeader from '../../components/SolicitationHeader';
 import InputWithLabel from './../../components/InputWithLabel';
 import GradientButton from '../../components/GradientButton';
 import SolicitationPickerWithLabel from './../../components/SolicitationPickerWithLabel';
-import { useDispatch, useSelector } from 'react-redux';
-import { Creators as dbConnectionActions } from '../../store/ducks/dbConnection';
+import {useDispatch, useSelector} from 'react-redux';
+import {Creators as dbConnectionActions} from '../../store/ducks/dbConnection';
 
 const ElectiveRemoval = props => {
   const [requesterTitle, setRequesterTitle] = useState('');
@@ -29,7 +29,7 @@ const ElectiveRemoval = props => {
       Alert.alert(
         'Faltam alguns dados!',
         'Por favor preencha todos os campos',
-        [{ text: 'Ok', style: 'destructive', onPress: null }],
+        [{text: 'Ok', style: 'destructive', onPress: null}],
       );
     } else {
       dispatch(
@@ -66,29 +66,31 @@ const ElectiveRemoval = props => {
             placeholder={'Motivo...'}
             inputTitle={'Nome do equipamento'}
             items={[
-              { label: 'Base Aquecida', value: 'Base Aquecida' },
+              {label: 'Base Aquecida', value: 'Base Aquecida'},
               {
                 label: 'Cabo Extensor de Oxímetro',
                 value: 'Cabo Extensor de Oxímetro',
               },
-              { label: 'Cadeira Higiênica', value: 'Cadeira Higiênica' },
-              { label: 'Colchão Hospitalar', value: 'Colchão Hospitalar' },
+              {label: 'Cadeira Higiênica', value: 'Cadeira Higiênica'},
+              {label: 'Colchão Hospitalar', value: 'Colchão Hospitalar'},
               {
                 label: 'Cough Assist/Indutor de Tosse',
                 value: 'Cough Assist/Indutor de Tosse',
               },
-              { label: 'Inalador', value: 'Inalador' },
-              { label: 'No Break', value: 'No Break' },
-              { label: 'Bomba Infusora', value: 'Bomba Infusora' },
-              { label: 'Cadeira de Rodas', value: 'Cadeira de Rodas' },
-              { label: 'Cama Hospitalar', value: 'Cama Hospitalar' },
+              {label: 'Inalador', value: 'Inalador'},
+              {label: 'No Break', value: 'No Break'},
+              {label: 'Bomba Infusora', value: 'Bomba Infusora'},
+              {label: 'Cadeira de Rodas', value: 'Cadeira de Rodas'},
+              {label: 'Cama Hospitalar', value: 'Cama Hospitalar'},
               {
                 label: 'Concentrador de Oxigênio',
                 value: 'Concentrador de Oxigênio',
               },
-              { label: 'Fluxômetro', value: 'Fluxômetro' },
-              { label: 'Monitor de Glicemia', value: 'Monitor de Glicemia' },
-              { label: 'Oxímetro', value: 'Oxímetro' },
+              {label: 'Fluxômetro', value: 'Fluxômetro'},
+              {label: 'Monitor de Glicemia', value: 'Monitor de Glicemia'},
+              {label: 'Oxímetro', value: 'Oxímetro'},
+              {label: 'Aspirador Elétrico', value: 'Aspirador Elétrico'},
+              {label: 'Aspirador Cirúrgico', value: 'Aspirador Cirúrgico'},
             ]}
             value={equipment}
             onSelectedChange={selectedEquipment =>
